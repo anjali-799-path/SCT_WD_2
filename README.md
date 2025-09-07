@@ -1,37 +1,26 @@
 # SCT_WD_2
-Stopwatch Web Application
+ 🧮 Calculator Web Application
+📌 Overview
 
-This project is built as part of SkillCraft Technology – Task 02.
-The objective is to create an interactive and user-friendly Stopwatch Web Application with essential functionalities.
+This project is part of SkillCraft Technology Internship (Task 02 - Alternative).
+It is a fully functional calculator web application built using HTML, CSS, and JavaScript. The project demonstrates DOM manipulation, event handling, error handling, and keyboard input handling while performing basic arithmetic operations.
 
- Task Objective
+🚀 Features
 
-Implement functions for:
+Perform basic arithmetic operations: ➕ Addition, ➖ Subtraction, ✖ Multiplication, ➗ Division
 
-Start – Begin the stopwatch.
+Clear (C) and Backspace functionality
 
-Pause – Halt the time without resetting.
+Supports both button clicks and keyboard input
 
-Reset – Restart the stopwatch from 00:00:00.
+Error handling for invalid expressions
 
-Lap Tracking – Record and display lap times.
+Responsive and user-friendly UI
 
-Ensure accurate time measurement and real-time updates.
+🛠️ Technologies Used
 
-Provide a clean and responsive UI for usability across devices.
+HTML5 – Structure of the calculator
 
- Features
+CSS3 – Styling and responsive design
 
-✔️ Start, pause, and reset functionality
-✔️ Lap time tracking and display
-✔️ Accurate time measurement with millisecond precision
-✔️ Responsive design for all screen sizes
-✔️ User-friendly interface with smooth interactions
-
-Tech Stack
-
-HTML5 – Structure
-
-CSS3 – Styling and responsiveness
-
-JavaScript (ES6) – Stopwatch logic and interactivity
+JavaScript (ES6) – DOM manipulation, event handling, and arithmetic logic
