@@ -1,96 +1,108 @@
-/* General Page Style */
+:root {
+  --bg-color: #87CEEB; /* Light mode sky blue */
+  --text-color: #222;
+  --nav-bg: #000000;   /* Navbar black */
+  --display-bg: #fff;
+}
+
 body {
-  margin: 0;
-  font-family: "Poppins", sans-serif;
-  background: linear-gradient(135deg, #0f0f1f, #1a1a2e);
-  color: #fff;
+  background: var(--bg-color);
+  color: var(--text-color);
+  min-height: 100vh;
+}
+
+/* Dark mode */
+body.dark {
+  --bg-color: #121212;
+  --text-color: #f4f4f9;
+  --nav-bg: #000000;
+  --display-bg: #1f1f1f;
+}
+
+/* Navbar */
+.navbar {
+  background: var(--nav-bg) !important;
+}
+
+/* Logo */
+.logo {
+  font-size: 1.6rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: white;
+  text-transform: uppercase;
+}
+
+.logo .icon {
+  font-size: 1.8rem;
+  background: linear-gradient(45deg, #ff9500, #ffcc70);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Display */
+.display {
+  background: var(--display-bg);
+  border-radius: 8px;
+  padding: 15px;
+  text-align: right;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+  min-height: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.display .expression {
+  font-size: 1rem;
+  color: gray;
+}
+
+.display .current {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+/* Buttons Grid */
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 20px;
+}
+.buttons button {
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 22px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: transform 0.1s ease-in-out, box-shadow 0.2s;
+}
+
+/* Press effect */
+.buttons button:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+
+
+/* Calculator Box */
+#calculator {
+  width: 450px;                 /* fixed width, broad look */
+  background: var(--display-bg);
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  position: relative;
+}
+
+/* Centering the calculator in screen */
+.container {
+  min-height: 100vh;            /* full height */
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 }
 
-/* Container */
-.container {
-  text-align: center;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 40px;
-  border-radius: 20px;
-  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.6);
-  max-width: 400px;
-  width: 90%;
-  animation: fadeIn 1s ease-in-out;
-}
-
-/* Title */
-h1 {
-  color: #00d4ff;
-  margin-bottom: 20px;
-}
-
-/* Stopwatch Display */
-#display {
-  font-size: 3rem;
-  font-weight: bold;
-  margin: 20px 0;
-  padding: 15px;
-  border-radius: 10px;
-  background: rgba(0, 212, 255, 0.1);
-  box-shadow: inset 0 0 15px rgba(0, 212, 255, 0.4);
-}
-
-/* Buttons */
-.buttons {
-  margin: 20px 0;
-}
-
-button {
-  background: #00d4ff;
-  border: none;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 600;
-  padding: 12px 20px;
-  margin: 5px;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-button:hover {
-  background: #00aacc;
-  transform: translateY(-2px);
-}
-
-button:active {
-  transform: scale(0.95);
-}
-
-/* Lap Times */
-h2 {
-  color: #00d4ff;
-  margin-top: 30px;
-}
-
-#laps {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  max-height: 150px;
-  overflow-y: auto;
-}
-
-#laps li {
-  background: rgba(255, 255, 255, 0.08);
-  margin: 8px 0;
-  padding: 10px;
-  border-radius: 10px;
-  font-weight: 500;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.4);
-}
-
-/* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
