@@ -1,59 +1,91 @@
-let timer;
-let seconds = 0, minutes = 0, hours = 0;
-let running = false;
+const themeToggle = document.getElementById("theme-toggle");
+const body = document.body;
+const displayExpression = document.querySelector(".expression");
+const displayCurrent = document.querySelector(".current");
+const buttons = document.querySelectorAll(".buttons button");
 
-const display = document.getElementById("display");
-const laps = document.getElementById("laps");
+let currentInput = "0";
+let operator = null;
+let firstOperand = null;
+let shouldResetDisplay = false;
+let expression = "";
 
-document.getElementById("start").addEventListener("click", startTimer);
-document.getElementById("pause").addEventListener("click", pauseTimer);
-document.getElementById("reset").addEventListener("click", resetTimer);
-document.getElementById("lap").addEventListener("click", recordLap);
+// Theme Toggle
+themeToggle.addEventListener("click", () => {
+  body.classList.toggle("dark");
+  themeToggle.textContent = body.classList.contains("dark") ? "☀️" : "🌙";
+});
 
-function startTimer() {
-  if (!running) {
-    running = true;
-    timer = setInterval(updateTime, 1000);
+// Calculator Functionality
+buttons.forEach(button => {
+  button.addEventListener("click", () => {
+    const value = button.value;
+
+    if (!isNaN(value) || value === ".") {
+      handleNumber(value);
+    } else {
+      handleOperator(value);
+    }
+    updateDisplay();
+  });
+});
+
+function handleNumber(num) {
+  if (currentInput === "0" || shouldResetDisplay) {
+    currentInput = num;
+    shouldResetDisplay = false;
+  } else {
+    currentInput += num;
   }
 }
 
-function pauseTimer() {
-  running = false;
-  clearInterval(timer);
+function handleOperator(op) {
+  switch (op) {
+    case "clear":
+      currentInput = "0";
+      firstOperand = null;
+      operator = null;
+      expression = "";
+      break;
+    case "backspace":
+      currentInput = currentInput.slice(0, -1) || "0";
+      break;
+    case "+/-":
+      currentInput = (parseFloat(currentInput) * -1).toString();
+      break;
+    case "=":
+      if (operator && firstOperand !== null) {
+        expression += ` ${currentInput}`;
+        currentInput = operate(firstOperand, parseFloat(currentInput), operator).toString();
+        operator = null;
+        firstOperand = null;
+        shouldResetDisplay = true;
+      }
+      break;
+    default: // +, -, *, /, %
+      if (operator && !shouldResetDisplay) {
+        currentInput = operate(firstOperand, parseFloat(currentInput), operator).toString();
+      }
+      operator = op;
+      firstOperand = parseFloat(currentInput);
+      expression = `${firstOperand} ${operator}`;
+      shouldResetDisplay = true;
+      break;
+  }
 }
 
-function resetTimer() {
-  running = false;
-  clearInterval(timer);
-  seconds = 0;
-  minutes = 0;
-  hours = 0;
-  display.textContent = "00:00:00";
-  laps.innerHTML = "";
+function operate(a, b, op) {
+  switch (op) {
+    case "+": return a + b;
+    case "-": return a - b;
+    case "*": return a * b;
+    case "/": return b !== 0 ? a / b : "Error";
+    case "%": return a % b;
+    default: return b;
+  }
 }
 
-function updateTime() {
-  seconds++;
-  if (seconds == 60) {
-    seconds = 0;
-    minutes++;
-  }
-  if (minutes == 60) {
-    minutes = 0;
-    hours++;
-  }
-  
-  let h = hours < 10 ? "0" + hours : hours;
-  let m = minutes < 10 ? "0" + minutes : minutes;
-  let s = seconds < 10 ? "0" + seconds : seconds;
-  
-  display.textContent = `${h}:${m}:${s}`;
-}
-
-function recordLap() {
-  if (running) {
-    let li = document.createElement("li");
-    li.textContent = display.textContent;
-    laps.appendChild(li);
-  }
+function updateDisplay() {
+  displayCurrent.textContent = currentInput;
+  displayExpression.textContent = expression;
 }
